@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     else {
         // --- 1. Read Input File ---        
         vector<vector<char>> bitMap;
-        vector<vector<bool>> visit;
+        vector<vector<bool>> colorVisit, countVisit;
         int connectCount;
         coordinate pos = {atoi(argv[2]), atoi(argv[3])};
         char color = *argv[4];
@@ -39,27 +39,30 @@ int main(int argc, char *argv[])
         fin >> w >> h;
         // declare bitMap & initailize               
         bitMap.resize(h);
-        visit.resize(h);
+        colorVisit.resize(h);
+        countVisit.resize(h);
         for(int i = 0; i < h; ++i) {
             bitMap[i].resize(w);
-            visit[i].resize(w);
+            colorVisit[i].resize(w);
+            countVisit[i].resize(w);
         }             
         
         // push value into 2D vector
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
                 fin >> bitMap[i][j];
-                visit[i][j] = false;
+                colorVisit[i][j] = false;
+                countVisit[i][j] = false;
             }      
         }           
         
         fin.close();
         
         // --- 2. Color Fill ---        
-        CollorFill(pos, color, w, h, bitMap, visit);
+        CollorFill(pos, color, w, h, bitMap, colorVisit);
 
         // --- 3. Count Conneted Component ---    
-        connectCount = ConnectCount(w, h, bitMap, visit);            
+        connectCount = ConnectCount(w, h, bitMap, countVisit);            
 
         // --- 3. Write Output File ---
         ofstream fout(argv[5]);
@@ -92,13 +95,6 @@ int ConnectCount(int w, int h, vector<vector<char>> &bitMap, vector<vector<bool>
 {
     int connectCount = 0;
     coordinate curPos;
-
-    // reset to false
-    for (int i = 0; i < h; i++) {
-        for (int j = 0; j < w; j++) {
-            visit[i][j] = false;                
-        }      
-    } 
 
     // traverse bitMap
     for (int i = 0; i < h; i++) {
