@@ -74,8 +74,7 @@ int main(int argc, char *argv[])
         }
         fout << connectCount << endl;
         fout.close();        
-    }   
-
+    }   cd 
     return 0;
 }
 
