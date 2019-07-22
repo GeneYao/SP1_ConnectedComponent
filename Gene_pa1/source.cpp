@@ -66,13 +66,13 @@ int main(int argc, char *argv[])
 
         // --- 3. Write Output File ---
         ofstream fout(argv[5]);
-        fout << h << " " << w << endl;
+        fout << w << " " << h << endl;
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++)
                 fout << bitMap[i][j] << " ";
             fout << endl;
         }
-        fout << connectCount << endl;
+        fout << connectCount;
         fout.close();        
     }
     return 0;
